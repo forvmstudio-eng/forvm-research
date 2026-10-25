@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forvm · Donde las ideas convergen</title>
+<meta name="description" content="Forvm es un espacio abierto donde convergen distintas formas de conocimiento: proyectos de investigación, conversatorios y mirada editorial.">
+<!-- Seguridad: igual que tu versión anterior, pero permitiendo leer tus hojas de Google (connect-src) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src 'self' data:; connect-src https://docs.google.com https://*.googleusercontent.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none';">
+<meta name="referrer" content="no-referrer">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f0ebe0;--bg2:#e8e2d5;--bg3:#ddd7c8;--surface:#f7f4ed;--ink:#162a18;--muted:#6b6454;--border:rgba(22,42,24,.12);--vd:#162a18;--vm:#2a5430;--vs:#3e6e46;--oro:#a07820;--oro2:#b48e30;--oro3:#caa840}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;font-weight:300;font-size:17px;background:var(--bg);color:var(--ink);line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:998;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.02'/%3E%3C/svg%3E")}
+:focus-visible{outline:2px solid var(--oro2);outline-offset:3px}
+[hidden]{display:none!important}
+a{color:inherit}
+.serif,h1,h2,h3{font-family:'Cormorant Garamond',serif}
+em{font-style:italic;color:var(--vs)}
+/* NAV */
+#top{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(240,235,224,.95);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;letter-spacing:.14em;text-decoration:none;color:var(--vd)}.logo i{font-style:normal;color:var(--oro2)}
+#links{display:flex;align-items:center;gap:1.2rem;list-style:none}
+#links a{font-family:'Syne',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+#links a:hover,#links a.on{color:var(--vm);border-color:var(--oro2)}
+#links a.pill{border:1px solid rgba(22,42,24,.3);padding:.55rem 1.2rem;color:var(--vd)}
+#links a.pill:hover{background:var(--vd);color:var(--bg)}
+#bg{display:none;background:none;border:1px solid var(--border);padding:.45rem 1rem;font:600 .7rem 'Syne',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--vd);cursor:pointer}
+@media(max-width:1340px){#bg{display:block}#links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;align-items:flex-start;padding:1rem 2.5rem 1.6rem;gap:1rem;border-bottom:1px solid var(--border)}#links.open{display:flex}}
+/* PAGES */
+section[data-p]{display:none;padding-top:5rem}section[data-p].on{display:block}
+.w{max-width:1060px;margin:0 auto;padding:0 2.5rem;width:100%}
+.sec{padding:5.5rem 0}.alt{background:var(--bg2)}
+.lab{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);margin-bottom:1rem}
+.lab.v{color:var(--vs)}
+h2.h{font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:400;line-height:1.1;margin-bottom:1.1rem}
+.rule{width:44px;height:1px;background:var(--oro);margin:1.4rem 0}.rule.v{background:var(--vs)}
+.lead{max-width:600px;color:var(--muted);font-size:1.05rem;line-height:1.85}
+.btn{display:inline-block;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:1rem 1.8rem;border:1px solid var(--vd);background:var(--vd);color:var(--bg);cursor:pointer}
+.btn:hover{background:var(--vm)}.btn.line{background:none;color:var(--vd)}.btn.line:hover{background:var(--vd);color:var(--bg)}.btn.gold{background:var(--oro2);border-color:var(--oro2);color:var(--vd)}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:0;bottom:0;left:2.5rem;width:1px;background:var(--border)}
+.hm{display:flex;flex-direction:column;justify-content:center;padding:4rem 0}
+.wm{font-family:'Cormorant Garamond',serif;font-size:clamp(5.2rem,16vw,12.5rem);font-weight:300;letter-spacing:.04em;line-height:.9;color:var(--vd);animation:rise 1s .1s ease both}.wm i{font-style:normal;color:var(--oro2)}
+.desc{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--oro);margin:1rem 0 3rem;display:flex;align-items:center;gap:.8rem}.desc::before{content:'';width:22px;height:1px;background:var(--oro)}
+.hb{display:grid;grid-template-columns:1fr 1fr;gap:4rem;animation:rise .9s .35s ease both}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,2.9vw,2.3rem);line-height:1.28}
+.sub{font-style:italic;color:var(--muted);margin-bottom:1.8rem;line-height:1.85}
+.acts{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.bar{background:var(--vd);padding:1.1rem 2.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-family:'Cormorant Garamond',serif;color:rgba(240,235,224,.85);font-size:1.15rem}
+.bar span{color:var(--oro3);font-style:italic}.bar div{display:flex;gap:2.4rem;flex-wrap:wrap}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.wm,.hb{animation:none}html{scroll-behavior:auto}}
+@media(max-width:800px){.hb{grid-template-columns:1fr;gap:2rem}.w{padding:0 1.4rem}#top{padding:1rem 1.4rem}#links{padding:1rem 1.4rem 1.6rem}.hero::after{left:1.4rem}.bar{padding:1rem 1.4rem}.sec{padding:4rem 0}}
+/* QUÉ ES */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+@media(max-width:800px){.two{grid-template-columns:1fr;gap:3rem}}
+.big{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.2vw,2.5rem);line-height:1.25;font-weight:400}
+.big em{font-style:italic}
+.body{color:var(--muted);margin-bottom:1rem;max-width:520px}
+.pr{display:grid;grid-template-columns:44px 1fr;gap:.5rem;padding:1.15rem 0;border-top:1px solid var(--border)}
+.pr:last-child{border-bottom:1px solid var(--border)}
+.pn{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--oro2)}
+.pt{font-family:'Cormorant Garamond',serif;font-size:1.4rem;line-height:1.2}
+.pd{color:var(--muted);font-size:.96rem;margin-top:.25rem}
+/* FORMATOS */
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--bg3);border:1px solid var(--bg3);margin-top:2.6rem}
+.fc{background:var(--surface);padding:2rem 1.7rem}
+.fn{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--oro3);line-height:1}
+.ft{font-family:'Syne',sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--vs);margin:.9rem 0 .4rem}.ft.p{color:var(--oro)}
+.fh{font-family:'Cormorant Garamond',serif;font-size:1.9rem;line-height:1.1;margin-bottom:.5rem}
+.fd{color:var(--muted);font-size:.96rem}
+/* QUOTE + MAIL */
+.qb{background:var(--vd);color:var(--bg);padding:4.5rem 0}
+.qt{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:300;line-height:1.25;max-width:760px}.qt em{color:var(--oro3)}
+.mail{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.8rem;max-width:520px}
+.mail input{flex:1;min-width:210px;padding:.95rem 1rem;border:1px solid rgba(22,42,24,.35);background:var(--surface);font:300 1rem 'DM Sans',sans-serif;color:var(--ink)}
+.qb .mail input{border-color:rgba(240,235,224,.3);background:rgba(240,235,224,.08);color:var(--bg)}
+.msg{width:100%;font-size:.92rem;color:var(--oro);min-height:1.2em}.qb .msg{color:var(--oro3)}
+/* LISTAS */
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.6rem 0 .6rem}
+.chip{font-family:'Syne',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--border);background:none;padding:.55rem 1.1rem;color:var(--muted);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--vd);color:var(--bg);border-color:var(--vd)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.3rem;margin-top:2rem}
+.card{background:var(--surface);border:1px solid var(--border);text-align:left;font:inherit;color:inherit;padding:0}
+button.card{cursor:pointer}button.card:hover{border-color:var(--oro2)}
+.ph{aspect-ratio:4/5;background:var(--bg3);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:4rem;color:var(--vs);overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover}
+.ct{padding:1rem 1.1rem 1.2rem}.cn{font-family:'Cormorant Garamond',serif;font-size:1.35rem;line-height:1.2}.cs{display:block;font-size:.88rem;color:var(--muted)}
+.row{display:grid;grid-template-columns:120px 1fr auto;gap:1.4rem;padding:1.4rem 0;border-top:1px solid var(--border);align-items:center}.row:last-child{border-bottom:1px solid var(--border)}
+.rd{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--oro2);line-height:1.1}
+.rt{font-family:'Cormorant Garamond',serif;font-size:1.5rem;line-height:1.2}
+.tag{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--border);padding:.35rem .8rem;color:var(--muted);white-space:nowrap;text-decoration:none;font-weight:600}
+@media(max-width:650px){.row{grid-template-columns:1fr;gap:.3rem}}
+.box{border:1px solid var(--bg3);background:var(--surface);padding:2.2rem;margin-top:2.4rem;max-width:620px}
+.box h3{font-size:1.8rem;font-weight:400;margin-bottom:.4rem}
+.box p{color:var(--muted)}
+.soon .lab{margin-bottom:.6rem}
+dialog{border:1px solid var(--bg3);padding:2rem;max-width:440px;width:90vw;background:var(--surface);color:var(--ink);margin:auto}
+dialog::backdrop{background:rgba(10,20,12,.55)}
+dialog h3{font-size:2rem;font-weight:400}dialog dt{font-family:'Syne',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);margin-top:.9rem}
+.ed{margin-top:3.2rem}.edh{display:grid;grid-template-columns:120px 1fr;gap:1.4rem;align-items:center;border-top:1px solid var(--border);padding-top:1.4rem}
+@media(max-width:650px){.edh{grid-template-columns:1fr;gap:.3rem}}
+.slot{aspect-ratio:16/6;margin-top:2.2rem;border:1px dashed var(--vs);background:var(--bg2);display:grid;place-items:center;color:var(--muted);font-size:.9rem;text-align:center;padding:1rem;overflow:hidden}.slot img{width:100%;height:100%;object-fit:cover;display:block}
+.ctas{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem}
+.cta{background:var(--surface);border:1px solid var(--border);padding:1.8rem;text-decoration:none;display:flex;flex-direction:column;gap:.9rem;align-items:flex-start}.cta:hover{border-color:var(--oro2)}
+.cta b{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:400;line-height:1.2}
+.cic details{border-top:1px solid var(--border);padding:1rem 0}.cic details:last-child{border-bottom:1px solid var(--border)}.cic summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.5rem}
+.cf{display:grid;gap:.7rem;margin-top:1.2rem}.cf input,.cf select,.cf textarea{padding:.9rem 1rem;border:1px solid rgba(22,42,24,.35);background:var(--surface);font:300 1rem 'DM Sans',sans-serif;color:var(--ink);width:100%}
+.two2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.3rem;margin-top:2.2rem}.two2 .box{margin:0;max-width:none}
+a.fc{display:block;text-decoration:none;color:inherit}a.fc:hover{background:var(--bg)}
+footer{background:var(--vd);color:rgba(240,235,224,.7);padding:2.6rem 0}
+.fi{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.2rem;align-items:center;font-size:.92rem}
+footer .logo{color:var(--bg);font-size:1.4rem}footer a{text-decoration:none;margin-left:1.4rem}footer a:hover{color:var(--oro3)}
+</style>
+</head>
+<body>
+<header id="top">
+  <a class="logo" href="#inicio" aria-label="Forvm, inicio">FOR<i>V</i>M</a>
+  <button id="bg" aria-expanded="false" aria-controls="links">Menú</button>
+  <ul id="links"><li><a href="#alumni">Alumni</a></li><li><a href="#mentores">Mentores</a></li><li><a href="#informes">Informes</a></li><li><a href="#editorial">Editorial</a></li><li><a href="#conversatorios">Conversatorios</a></li><li><a href="#certificaciones">Certificaciones</a></li><li><a href="#eventos">Weekend</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#archivo">Archivo</a></li><li><a class="pill" href="#postular">Postular</a></li></ul>
+</header>
+
+<main>
+<section data-p id="p-inicio" class="on">
+  <div class="hero">
+    <div class="w hm">
+      <div class="wm">FOR<i>V</i>M</div>
+      <div class="desc">Donde las ideas convergen</div>
+      <div class="hb">
+        <div class="st">Cada idea mejora<br>cuando alguien la mira <em>distinto.</em></div>
+        <div>
+          <p class="sub">Un espacio abierto donde convergen distintas formas de conocimiento. Aquí se pregunta, se conversa y se crea, sin necesidad de ser experto.</p>
+          <div class="acts"><a class="btn" href="#postular">Postular</a><a class="btn line" href="#informes">Conoce los proyectos</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="bar"><div>Investigación <span>·</span> Mentoría <span>·</span> Conversaciones</div><div>Mirada <span>internacional</span></div></div>
+  </div>
+  <div class="sec"><div class="w two">
+    <div>
+      <div class="lab">Qué es Forvm</div>
+      <div class="big">Un lugar donde<br>la gente se junta<br><em>a pensar.</em></div>
+      <div class="rule"></div>
+      <p class="body">Es un espacio seguro para conversar y crear proyectos. Se cruzan miradas distintas en torno a un mismo tema.</p>
+      <p class="body">Conversaciones que no estaban en tu agenda. Traer a tu día a día lo que normalmente no estaría ahí.</p>
+      
+    </div>
+    <div>
+      <div class="lab v">Lo que vas a encontrar</div>
+      <h2 class="h" style="font-size:clamp(1.8rem,3vw,2.4rem)">Un lugar para<br><em>preguntar sin miedo.</em></h2>
+      <div class="rule v"></div>
+      <div class="pr"><div class="pn">I</div><div><div class="pt">Preguntas bienvenidas</div><div class="pd">Se puede preguntar todo, también lo que parece obvio, porque casi nunca lo es.</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Opiniones distintas</div><div class="pd">Una perspectiva diferente suma.</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">Varias disciplinas</div><div class="pd">Cada tema se mira desde más de un área, porque entenderlo de verdad lo pide.</div></div></div>
+    </div>
+  </div></div>
+  <div class="sec alt"><div class="w">
+    <div class="lab">Cómo convergen las ideas</div>
+    <h2 class="h">Cuatro caminos<br><em>hacia el mismo lugar.</em></h2>
+    <div class="rule"></div>
+    <div class="fg">
+      <a class="fc" href="#informes"><div class="fn">01</div><div class="ft p">Con postulación</div><div class="fh">Proyectos de investigación</div><div class="fd">Personas de distintos países unen sus miradas para investigar un mismo tema.</div></a>
+      <a class="fc" href="#conversatorios"><div class="fn">02</div><div class="ft">Gratis</div><div class="fh">Conversatorios</div><div class="fd">Un tema, distintas miradas, distintas disciplinas.</div></a>
+      <a class="fc" href="#editorial"><div class="fn">03</div><div class="ft">Publicaciones</div><div class="fh">Mirada editorial</div><div class="fd">El cruce entre economía y psicología.</div></a>
+      <a class="fc" href="#certificaciones"><div class="fn">04</div><div class="ft p">Próximamente</div><div class="fh">Certificaciones</div><div class="fd">Según tu perfil y lo que quieras aprender.</div></a>
+    </div>
+  </div></div>
+  <div class="sec"><div class="w"><figure class="slot" data-img="inicio">Espacio para foto: el equipo, un evento o una ilustración</figure></div></div>
+  <div class="qb"><div class="w">
+    <div class="qt">Una idea cambia de forma cuando se sienta a la mesa <em>con otras.</em></div>
+    <form class="mail" data-src="inicio"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form>
+  </div></div>
+</section>
+
+
+<section data-p id="p-alumni"><div class="sec"><div class="w">
+  <div class="lab">Alumni</div>
+  <h2 class="h">Quienes ya <em>investigaron aquí.</em></h2><div class="rule"></div>
+  <p class="lead">Elige un área, encuentra el proyecto y conoce a las personas que lo hicieron: su equipo, su mentor y su informe.</p>
+  <div class="chips" id="c-al" role="group" aria-label="Filtrar por área"></div>
+  <div id="alumni"></div>
+  <div class="box" id="al-box"><h3>Avísame cuando se publique el primer informe</h3><p>Déjanos tu correo.</p><form class="mail" data-src="alumni"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form></div>
+</div></div></section>
+
+<section data-p id="p-mentores"><div class="sec"><div class="w">
+  <div class="lab">Mentores</div>
+  <h2 class="h">Quienes trabajan en<br><em>lo que investigamos.</em></h2><div class="rule"></div>
+  <p class="lead">Un mentor no da clases ni evalúa el proyecto. Acompaña al equipo desde la experiencia.</p>
+  <div style="margin-top:2rem;max-width:560px"><div class="pr"><div class="pn">I</div><div><div class="pt">Revisa los avances</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Hace las preguntas que faltan</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">Cuenta cómo es en la práctica</div></div></div></div>
+  <div class="grid" id="mentors"></div>
+  <div class="box"><div class="lab">Súmate</div><h3>¿Trabajas en algo que nuestros equipos deberían conocer?</h3><p>Déjanos tu contacto y conversamos.</p><form class="mail" data-src="mentor"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Dejar mi contacto</button><div class="msg" role="status"></div></form></div>
+</div></div></section>
+
+<section data-p id="p-informes"><div class="sec"><div class="w">
+  <div class="lab">Informes</div>
+  <h2 class="h">Lo que <em>descubrimos.</em></h2><div class="rule"></div>
+  <p class="lead">Cada proyecto termina en un informe público. Aquí están los que siguen en marcha y los que ya cerraron.</p>
+  <div class="chips" id="c-es" role="group" aria-label="Estado"></div>
+  <div class="chips" id="c-in" role="group" aria-label="Filtrar por área"></div>
+  <div id="reports" style="margin-top:1.4rem"></div>
+</div></div></section>
+
+<section data-p id="p-editorial"><div class="sec"><div class="w">
+  <div class="lab">Mirada editorial</div>
+  <h2 class="h">Por qué decidimos<br><em>como decidimos.</em></h2><div class="rule"></div>
+  <p class="lead">Contamos con un área editorial independiente sobre economía conductual: el cruce entre economía y psicología que explica por qué tomamos las decisiones que tomamos.</p>
+  <p class="lead" style="margin-top:1rem">Nace de una convicción simple: la economía se entiende mejor cuando se mira desde adentro. Analizamos cómo el comportamiento humano explica los fenómenos económicos, desde las decisiones de inversión hasta las políticas públicas, desde los mercados hasta las elecciones cotidianas.</p>
+  <div class="big" style="margin-top:3rem;max-width:760px">Exploramos esa parte de nosotros: los sesgos, los miedos y <em>las contradicciones que nos definen.</em></div>
+  <div style="margin-top:3.5rem;max-width:760px"><div class="lab v">¿Cómo pensamos?</div>
+    <div class="pr"><div class="pn">I</div><div><div class="pt">La incomodidad como señal</div><div class="pd">Un buen análisis no siempre te confirma lo que ya pensabas. También te mueve algo.</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Los datos no hablan solos</div><div class="pd">Detrás de cada dato hay un supuesto, un contexto y un marco de interpretación. Hacer visible esa capa es parte central del trabajo.</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">El contexto lo cambia todo</div><div class="pd">Una misma decisión, en contextos distintos, da resultados distintos.</div></div></div><div class="pr"><div class="pn">IV</div><div><div class="pt">Claridad es profundidad</div><div class="pd">Explicar algo complejo de forma simple no es simplificarlo: es entenderlo de verdad.</div></div></div><div class="pr"><div class="pn">V</div><div><div class="pt">El largo plazo importa</div><div class="pd">Muchas de las fuerzas más importantes de la economía se mueven despacio.</div></div></div></div>
+  <div class="box"><h3>Entérate de nuestras publicaciones</h3><p>Déjanos tu correo y te avisamos.</p><form class="mail" data-src="editorial"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form></div>
+</div></div></section>
+<section data-p id="p-conversatorios"><div class="sec"><div class="w">
+  <div class="lab">Conversatorios</div>
+  <h2 class="h">Un tema,<br><em>varias miradas.</em></h2><div class="rule"></div>
+  <p class="lead">Elegimos un tema y lo abordamos entre todos. Conversaciones que no estaban en tu agenda.</p>
+  <figure class="slot" data-img="conversatorios">Espacio para foto: un conversatorio anterior</figure>
+  <div class="lab" style="margin-top:3rem">Presenciales</div>
+  <div id="events"></div>
+  <div class="lab v" style="margin-top:3.2rem">Online</div>
+  <p class="lead">Se publican en Luma. Así funcionan:</p>
+  <div style="margin-top:1rem;max-width:560px"><div class="pr"><div class="pn">I</div><div><div class="pt">Te inscribes en Luma</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Te llega el enlace de Zoom</div><div class="pd">Y los recordatorios, que mandamos por Discord.</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">Conversamos</div></div></div></div>
+  <div class="acts" style="margin-top:2rem"><a class="btn" id="luma" href="#conversatorios">Ver conversatorios en Luma</a><a class="btn line" id="discord" href="#conversatorios">Unirme al Discord</a></div>
+</div></div></section>
+
+<section data-p id="p-certificaciones"><div class="sec"><div class="w soon">
+  <div class="lab">Certificaciones · Próximamente</div>
+  <h2 class="h">Aprender a<br><em>tu medida.</em></h2><div class="rule"></div>
+  <div class="box" style="max-width:none"><div class="lab">Certificado de participación</div><h3>Un proyecto internacional que también certifica</h3><p>Quienes completan un proyecto de investigación reciben un certificado de participación en el programa.</p><p style="margin-top:1.2rem"><a class="btn" href="#postular">Quiero participar</a></p></div>
+  <div class="two2">
+    <div class="box"><h3>Quiero enterarme</h3><p>Déjanos tu correo y te avisamos cuando abramos.</p><form class="mail" data-src="certificaciones"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form></div>
+    <div class="box"><h3>Quiero una recomendación a mi medida</h3><p>Cuéntanos de ti y te enviaremos lo que mejor calce con tu perfil.</p>
+      <form class="cf" id="cform"><input name="nombre" placeholder="Tu nombre" aria-label="Tu nombre" required><input name="correo" type="email" placeholder="Tu correo" aria-label="Tu correo" required><input name="telefono" type="tel" placeholder="Tu teléfono" aria-label="Tu teléfono"><input name="interes" placeholder="Áreas que te interesan" aria-label="Áreas que te interesan"><textarea name="previo" rows="2" placeholder="¿Has tomado alguna clase, certificación o curso en esta materia?" aria-label="Estudios previos"></textarea><textarea name="aprender" rows="3" placeholder="¿Qué te gustaría aprender?" aria-label="Qué te gustaría aprender"></textarea><select name="nivel" aria-label="Tu nivel"><option>Recién parto</option><option>Nivel intermedio</option><option>Nivel avanzado</option></select><button class="btn" type="submit">Enviar</button><div class="msg" role="status"></div></form></div>
+  </div>
+</div></div></section>
+
+<section data-p id="p-eventos"><div class="sec"><div class="w soon">
+  <div class="lab">Forvm Weekend · Próximamente</div>
+  <h2 class="h">Un tema,<br><em>muchas áreas.</em></h2><div class="rule"></div>
+  <p class="lead">Un fin de semana presencial para abordar un mismo tema con especialistas de distintas disciplinas. Si hablamos de medioambiente, también habla un abogado. Habrá conversatorios, presentaciones de las investigaciones y tiempo para conocerse.</p>
+  <figure class="slot" data-img="eventos">Espacio para foto: imagen del evento</figure>
+  <div class="box"><h3>Entérate de las novedades</h3><p>Déjanos tu correo y te contamos fecha, lugar y entradas.</p><form class="mail" data-src="weekend"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form></div>
+  <p class="note"><a href="#archivo">Mira cómo fueron nuestras actividades anteriores</a></p>
+</div></div></section>
+
+<section data-p id="p-biblioteca"><div class="sec"><div class="w soon">
+  <div class="lab">Biblioteca · Próximamente</div>
+  <h2 class="h">Todo lo investigado, <em>en un solo lugar.</em></h2><div class="rule"></div>
+  <p class="lead">Aquí vivirán los informes por fase de cada edición, las bitácoras y las publicaciones propias de Forvm, ordenados por año y por área.</p><figure class="slot" data-img="biblioteca">Espacio para foto: ilustración o gráfico</figure>
+  <div class="box"><h3>Entérate cuando abra</h3><p>Déjanos tu correo.</p>
+    <form class="mail" data-src="biblioteca"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Avísame</button><div class="msg" role="status"></div></form></div>
+</div></div></section>
+
+<section data-p id="p-postular"><div class="sec"><div class="w">
+  <div class="lab">Postular</div>
+  <h2 class="h">Súmate al<br><em>próximo ciclo.</em></h2><div class="rule"></div>
+  <p class="lead">Cada proyecto junta a personas de universidades y países distintos alrededor de un tema. Cada equipo aporta lo que ve desde su lado, y de ese cruce sale un informe claro y fácil de leer. Durante el proceso te acompañan mentores que apoyan tu investigación.</p>
+  <div class="two" style="margin-top:3.5rem">
+    <div><div class="lab v">Lo que esperamos de ti</div>
+    <div class="pr"><div class="pn">I</div><div><div class="pt">Iniciativa</div><div class="pd">Tomar acción, sugerir, usar tu creatividad y proponer antes de que te lo pidan.</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Independencia</div><div class="pd">El proyecto es tuyo. Los mentores orientan, no lo resuelven.</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">Buen trato</div><div class="pd">Celebrar el trabajo del otro y pedir ayuda a tiempo.</div></div></div><div class="pr"><div class="pn">IV</div><div><div class="pt">Comunicación</div><div class="pd">Con un equipo en dos países, avisar a tiempo es parte del trabajo.</div></div></div><div class="pr"><div class="pn">V</div><div><div class="pt">Curiosidad</div><div class="pd">Preguntar de más siempre es bienvenido.</div></div></div><div class="pr"><div class="pn">VI</div><div><div class="pt">Apertura</div><div class="pd">Escuchar otras miradas antes de defender la propia.</div></div></div></div>
+    <div><div class="lab">El camino</div>
+    <div class="pr"><div class="pn">I</div><div><div class="pt">Postulas</div><div class="pd">Tu CV, una carta de motivación donde cuentas qué quieres investigar y por qué con nosotros, más una encuesta corta.</div></div></div><div class="pr"><div class="pn">II</div><div><div class="pt">Te sumas a un equipo</div><div class="pd">Te incorporas a un equipo internacional y en la primera sesión se reparten los roles.</div></div></div><div class="pr"><div class="pn">III</div><div><div class="pt">Haces el proceso de investigación</div><div class="pd">Trabajas junto a tu equipo a lo largo del ciclo.</div></div></div><div class="pr"><div class="pn">IV</div><div><div class="pt">Cuentas con un mentor</div><div class="pd">A lo largo del proceso tendrás mentorías para apoyarte en el desarrollo de la investigación.</div></div></div><div class="pr"><div class="pn">V</div><div><div class="pt">Publicamos</div><div class="pd">El resultado de la investigación y una bitácora donde el equipo cuenta cómo llegó hasta ahí.</div></div></div></div>
+  </div>
+  <div class="box"><div class="lab" id="conv-lab">Próxima convocatoria: por confirmar</div><h3>Entérate cuando abramos</h3><p>Déjanos tu correo y te avisamos.</p><form class="mail" data-src="postular"><input type="email" placeholder="Tu correo" aria-label="Tu correo" required><button class="btn" type="submit">Quiero enterarme</button><div class="msg" role="status"></div></form>
+    <p style="margin-top:1rem"><a class="btn gold" id="apply" href="#postular" hidden>Ir al formulario</a></p></div>
+</div></div></section>
+<section data-p id="p-archivo"><div class="sec"><div class="w">
+  <div class="lab">Archivo · Segundo semestre 2026</div>
+  <h2 class="h">Lo que ya <em>pasó.</em></h2><div class="rule"></div>
+  <p class="lead">Fotos, resúmenes y videos de lo que hemos hecho este semestre. Toca una para ver el detalle.</p>
+  <div class="grid" id="archivo"></div>
+</div></div></section>
+</main>
+
+<footer><div class="w fi">
+  <a class="logo" href="#inicio">FOR<i>V</i>M</a>
+  <span>Donde las ideas convergen</span>
+  <span><a href="https://www.linkedin.com/company/forvm-studio/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://instagram.com/the.forvm" target="_blank" rel="noopener noreferrer">Instagram</a></span>
+</div></footer>
+
+<dialog id="dlg2"><h3 id="d2n"></h3><div id="d2b"></div><p style="margin-top:1.4rem"><a class="btn" id="d2v" hidden>Ver video</a> <button class="btn line" id="d2c">Cerrar</button></p></dialog>
+<dialog id="dlg"><h3 id="dn"></h3><dl id="db"></dl><p style="margin-top:1.4rem"><a class="btn" id="dl" href="#informes">Ver informe</a> <button class="btn line" id="dc">Cerrar</button></p></dialog>
+
+<script>
+/* ============ EDITA AQUÍ (todo lo que cambia seguido) ============
+   Opción A: dejar los datos de abajo (editas este archivo).
+   Opción B: conectar hojas de Google: Archivo > Compartir > Publicar en la web > CSV,
+             y pegar cada enlace abajo. Desde ahí editas la hoja y la web se actualiza sola.
+   Columnas esperadas en cada hoja (fila 1 = encabezados exactos):
+   alumni:   nombre, universidad, area, anio, mentor, proyecto, paises, link, foto
+   mentores: nombre, rol, foto
+   informes: titulo, anio, area, estado, paises, descripcion, link
+   eventos:  fecha, titulo, detalle, etiqueta, link
+   archivo:  fecha, titulo, foto (ej: img/nico.jpg), resumen, video               */
+const SHEETS = { alumni:"", mentores:"", informes:"", eventos:"", archivo:"" };
+const LUMA_URL = "";       // tu perfil de Luma
+const FORM_URL = "";       // formulario de postulación (cuando abra)
+const MAIL_ACTION = "";    // URL "formResponse" de un Google Form con 1 campo de correo
+const MAIL_FIELD  = "";    // ej: entry.123456789
+const MAIL_SRC_FIELD = ""; // 2º campo del Form (texto corto) para saber desde qué pestaña se inscribió
+const CONVOCATORIA = "por confirmar";
+const OCULTAS = ["eventos","biblioteca"];        // ej: ["biblioteca","archivo"] para esconder pestañas sin borrarlas
+const DISCORD_URL = "";    // invitación a tu Discord
+const CERT_FORM = {action:"",nombre:"",correo:"",telefono:"",interes:"",previo:"",aprender:"",nivel:""}; // URL formResponse + entry.xxx de cada pregunta
+const CERT_ACTIVE = false;  // pasa a true cuando existan las certificaciones
+const IMAGES = {inicio:"",investigacion:"",conversatorios:"",eventos:"",biblioteca:""}; // rutas tipo img/foto1.jpg
+const AREAS = ["Finanzas","Economía","Marketing","Ciencia"];
+let ALUMNI = [];   /* aún sin perfiles */
+let MENTORES = []; /* aún sin mentores confirmados */
+let INFORMES = [{titulo:"Portafolio de mercados emergentes",anio:"2026",area:"Finanzas",estado:"En curso",paises:"Chile y Colombia",descripcion:"Equipos de Chile y Colombia investigan, por fases, un portafolio de mercados emergentes.",link:""}];
+let ARCHIVO = [{fecha:"2026",titulo:"Conversatorio con Nico Bravo",foto:"",resumen:"",video:""}];
+let EVENTOS = [
+ {fecha:"4 nov",titulo:"Conversatorio con Pablo López, fundador de Silbón",detalle:"Miércoles, 12:00 · Universidad de los Andes, Santiago",etiqueta:"Gratis",link:""},
+ {fecha:"Por confirmar",titulo:"Conversatorio con Lucas Palacios",detalle:"Fecha y lugar por confirmar",etiqueta:"Gratis",link:""}];
+/* ================================================================ */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const safeUrl=u=>/^(https?:|#|mailto:|img\/)/.test(u||'')?u:'';
+function csv(t){const r=[];let row=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}else if(ch=='"')q=true;else if(ch==','){row.push(c);c=''}else if(ch=='\n'||ch=='\r'){if(ch=='\r'&&t[i+1]=='\n')i++;row.push(c);r.push(row);row=[];c=''}else c+=ch}
+ if(c||row.length){row.push(c);r.push(row)}const h=(r.shift()||[]).map(x=>x.trim().toLowerCase());return r.filter(x=>x.some(v=>v.trim())).map(x=>Object.fromEntries(h.map((k,i)=>[k,(x[i]||'').trim()])))}
+async function load(url,fb){if(!url)return fb;try{const r=await fetch(url);if(!r.ok)throw 0;const d=csv(await r.text());return d.length?d:fb}catch(e){return fb}}
+function route(){show((location.hash||'#inicio').slice(1))}
+function show(id){const pg=$('#p-'+id)?id:'inicio';
+ $$('section[data-p]').forEach(s=>s.classList.toggle('on',s.id==='p-'+pg));
+ $$('#links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+pg));
+ $('#links').classList.remove('open');$('#bg').setAttribute('aria-expanded','false');scrollTo(0,0);
+ document.title=(pg==='inicio'?'':pg[0].toUpperCase()+pg.slice(1)+' · ')+'Forvm'}
+OCULTAS.forEach(i=>{const a=$('#links a[href="#'+i+'"]');if(a)a.parentElement.remove();const q=$('#p-'+i);if(q)q.remove()});
+addEventListener('hashchange',route);route();
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute('href').slice(1);if(!id||!$('#p-'+id))return;e.preventDefault();show(id);try{history.replaceState(null,'','#'+id)}catch(x){}});
+$('#bg').onclick=()=>$('#bg').setAttribute('aria-expanded',$('#links').classList.toggle('open'));
+function chips(id,cb){let cur='Todas';const d=()=>{$('#'+id).innerHTML=['Todas',...AREAS].map(a=>`<button class="chip" aria-pressed="${a===cur}">${a}</button>`).join('');$$('#'+id+' .chip').forEach(b=>b.onclick=()=>{cur=b.textContent;d();cb(cur)})};d();cb(cur)}
+function pic(f,n){return f&&safeUrl(f)?`<img src="${esc(f)}" alt="">`:esc((n||'F')[0])}
+function drawAlumni(){if(!$('#alumni'))return;if(!ALUMNI.length){$('#c-al').hidden=true;$('#al-box').hidden=false;$('#alumni').innerHTML='<p class="lead" style="margin-top:2rem">Próximamente: aquí encontrarás los perfiles de quienes participen en los proyectos.</p>';return}$('#c-al').hidden=false;$('#al-box').hidden=true;chips('c-al',a=>{
+ const L=ALUMNI.filter(x=>a==='Todas'||x.area===a),g={};
+ L.forEach(x=>(g[x.anio+'|'+x.proyecto]=g[x.anio+'|'+x.proyecto]||[]).push(x));
+ const ks=Object.keys(g).sort().reverse(); /* más reciente arriba; quita .reverse() para el orden inverso */
+ $('#alumni').innerHTML=ks.length?ks.map(k=>{const G=g[k],f=G[0];return `<div class="ed"><div class="edh"><div class="rd">${esc(f.anio)}</div><div><div class="rt">${esc(f.proyecto)}</div><span class="cs">${esc(f.paises)} · ${esc(f.area)}</span></div></div><div class="grid">${G.map(x=>`<button class="card" data-i="${ALUMNI.indexOf(x)}"><div class="ph">${pic(x.foto,x.nombre)}</div><div class="ct"><div class="cn">${esc(x.nombre)}</div><span class="cs">${esc(x.universidad)}</span></div></button>`).join('')}</div></div>`}).join(''):'<p class="lead" style="margin-top:2rem">Todavía no hay perfiles en esta área.</p>';
+ $$('#alumni .card').forEach(b=>b.onclick=()=>{const x=ALUMNI[b.dataset.i],eq=ALUMNI.filter(y=>y!==x&&y.proyecto===x.proyecto&&y.anio===x.anio).map(y=>esc(y.nombre)).join(', ')||'Por completar';$('#dn').textContent=x.nombre;
+  $('#db').innerHTML=`<dt>Universidad</dt><dd>${esc(x.universidad)}</dd><dt>Edición</dt><dd>${esc(x.anio)}</dd><dt>Área</dt><dd>${esc(x.area)}</dd><dt>Proyecto</dt><dd>${esc(x.proyecto)}</dd><dt>Equipo</dt><dd>${eq}</dd><dt>Mentor</dt><dd>${esc(x.mentor)}</dd>`;$('#dl').href=safeUrl(x.link)||'#informes';$('#dlg').showModal()})})}
+function drawMentors(){if(!$('#mentors'))return;$('#mentors').innerHTML=MENTORES.length?MENTORES.map(m=>`<div class="card"><div class="ph">${pic(m.foto,m.nombre)}</div><div class="ct"><div class="cn">${esc(m.nombre)}</div><span class="cs">${esc(m.rol)}</span></div></div>`).join(''):'<p class="lead" style="grid-column:1/-1">Pronto conocerás a quienes nos acompañan.</p>'}
+let EST='En curso',AREA='Todas';
+function drawReports(){
+ if(!$('#reports'))return;
+ $('#c-es').innerHTML=['En curso','Finalizados'].map(t=>`<button class="chip" aria-pressed="${t===EST}">${t}</button>`).join('');
+ $$('#c-es .chip').forEach(b=>b.onclick=()=>{EST=b.textContent;drawReports()});
+ $('#c-in').innerHTML=['Todas',...AREAS].map(t=>`<button class="chip" aria-pressed="${t===AREA}">${t}</button>`).join('');
+ $$('#c-in .chip').forEach(b=>b.onclick=()=>{AREA=b.textContent;drawReports()});
+ const fin=x=>/^final/i.test(x.estado||''),L=INFORMES.filter(x=>(AREA==='Todas'||x.area===AREA)&&(EST==='Finalizados'?fin(x):!fin(x)));
+ $('#reports').innerHTML=L.length?L.map(x=>`<div class="row"><div class="rd">${esc(x.anio)}</div><div><div class="rt">${esc(x.titulo)}</div><span class="cs">${esc(x.area)}</span></div>${safeUrl(x.link)?`<a class="tag" href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">Leer</a>`:`<span class="tag">${esc(x.estado)}</span>`}</div>`).join(''):'<p class="lead">Todavía no hay informes en esta categoría.</p>'}
+function drawEvents(){if(!$('#events'))return;$('#events').innerHTML=EVENTOS.map(e=>`<div class="row"><div class="rd">${esc(e.fecha)}</div><div><div class="rt">${esc(e.titulo)}</div><span class="cs">${esc(e.detalle)}</span></div>${safeUrl(e.link)?`<a class="tag" href="${esc(e.link)}" target="_blank" rel="noopener noreferrer">Inscribirme</a>`:`<span class="tag">${esc(e.etiqueta)}</span>`}</div>`).join('')}
+function drawArchivo(){const A=$('#archivo');if(!A)return;if(!ARCHIVO.length){A.innerHTML='<p class="lead" style="grid-column:1/-1">Aquí iremos guardando lo que vayamos viviendo.</p>';return}
+ A.innerHTML=ARCHIVO.map((x,i)=>`<button class="card" data-i="${i}"><div class="ph" style="aspect-ratio:4/3">${pic(x.foto,x.titulo)}</div><div class="ct"><div class="cn">${esc(x.titulo)}</div><span class="cs">${esc(x.fecha)}</span></div></button>`).join('');
+ $$('#archivo .card').forEach(b=>b.onclick=()=>{const x=ARCHIVO[b.dataset.i];$('#d2n').textContent=x.titulo;$('#d2b').innerHTML=(safeUrl(x.foto)?`<img src="${esc(x.foto)}" alt="" style="width:100%;margin:.8rem 0">`:'')+`<p style="margin-top:.6rem;color:var(--muted)">${esc(x.fecha)}</p><p style="margin-top:.8rem">${esc(x.resumen||'')}</p>`;const v=$('#d2v');if(safeUrl(x.video)){v.href=x.video;v.target='_blank';v.rel='noopener noreferrer';v.hidden=false}else v.hidden=true;$('#dlg2').showModal()})}
+function drawCiclos(){const L=INFORMES.filter(x=>!/^final/i.test(x.estado||''));$('#ciclos').innerHTML=L.length?L.map(x=>`<details><summary>${esc(x.titulo)} <span class="cs" style="display:inline">· ${esc(x.anio)}${x.paises?' · '+esc(x.paises):''}</span></summary><p style="color:var(--muted);margin-top:.6rem">${esc(x.descripcion||'')}</p></details>`).join(''):'<p class="note">Pronto abriremos un nuevo ciclo.</p>'}
+function buildCtas(){$$('section[data-p]').forEach(s=>{const id=s.id.slice(2),c=[];if(id==='inicio')return;
+ if(!['postular','mentores','certificaciones'].includes(id))c.push('<a class="cta" href="#postular"><span class="lab">Forvm Research</span><b>¿Quieres participar en nuestros próximos proyectos de investigación?</b><span class="tag">Conocer más</span></a>');
+ if(CERT_ACTIVE&&!['certificaciones','postular'].includes(id))c.push('<a class="cta" href="#certificaciones"><span class="lab">Certificaciones</span><b>Aprende por niveles con mentores y especialistas.</b><span class="tag">Ver certificaciones</span></a>');
+ if(c.length)s.insertAdjacentHTML('beforeend','<div class="sec alt"><div class="w ctas">'+c.join('')+'</div></div>')})}
+function fillSlots(){$$('.slot').forEach(s=>{const u=IMAGES[s.dataset.img];if(safeUrl(u))s.innerHTML='<img src="'+esc(u)+'" alt="">';else s.hidden=true})}
+$('#dc').onclick=()=>$('#dlg').close();$('#dl').onclick=()=>$('#dlg').close();
+if(safeUrl(LUMA_URL)){$('#luma').href=LUMA_URL;$('#luma').target='_blank';$('#luma').rel='noopener noreferrer'}else $('#luma').hidden=true;
+if(safeUrl(DISCORD_URL)){$('#discord').href=DISCORD_URL;$('#discord').target='_blank';$('#discord').rel='noopener noreferrer'}else $('#discord').hidden=true;
+$('#d2c').onclick=()=>$('#dlg2').close();
+$('#cform').onsubmit=async e=>{e.preventDefault();const f=e.target,m=f.querySelector('.msg');if(!CERT_FORM.action){m.textContent='Pronto activaremos este formulario. Mientras tanto, escríbenos por Instagram @the.forvm.';return}try{const b=new FormData();['nombre','correo','telefono','interes','previo','aprender','nivel'].forEach(k=>{if(CERT_FORM[k])b.append(CERT_FORM[k],f.elements[k].value)});await fetch(CERT_FORM.action,{method:'POST',mode:'no-cors',body:b});f.reset();m.textContent='Gracias, te escribiremos con lo que calce contigo.'}catch(x){m.textContent='No pudimos guardarlo. Inténtalo de nuevo.'}};
+if(safeUrl(FORM_URL)){const a=$('#apply');a.href=FORM_URL;a.target='_blank';a.rel='noopener noreferrer';a.hidden=false}
+$('#conv-lab').textContent='Próxima convocatoria: '+CONVOCATORIA;
+$$('form.mail').forEach(f=>f.onsubmit=async e=>{e.preventDefault();const m=f.querySelector('.msg'),v=f.querySelector('input').value.trim();
+ if(!MAIL_ACTION||!MAIL_FIELD){m.textContent='Pronto activaremos este formulario. Mientras tanto, escríbenos por Instagram @the.forvm.';return}
+ try{const b=new FormData();b.append(MAIL_FIELD,MAIL_SRC_FIELD?v:v+' ('+f.dataset.src+')');if(MAIL_SRC_FIELD)b.append(MAIL_SRC_FIELD,f.dataset.src);await fetch(MAIL_ACTION,{method:'POST',mode:'no-cors',body:b});f.reset();m.textContent='Listo, te avisaremos.'}catch(x){m.textContent='No pudimos guardarlo. Inténtalo de nuevo.'}});
+drawAlumni();drawMentors();drawReports();drawEvents();drawArchivo();buildCtas();fillSlots();
+(async()=>{[ALUMNI,MENTORES,INFORMES,EVENTOS,ARCHIVO]=await Promise.all([load(SHEETS.alumni,ALUMNI),load(SHEETS.mentores,MENTORES),load(SHEETS.informes,INFORMES),load(SHEETS.eventos,EVENTOS),load(SHEETS.archivo,ARCHIVO)]);drawAlumni();drawMentors();drawReports();drawEvents();drawArchivo()})();
+</script>
+</body>
+</html>
